@@ -1,0 +1,12 @@
+<% if(user) {%>
+<%= user.displayName %>
+<%= user.githubId %>
+<%= user.bitbucketId %>
+<% } %>
+
+<% if(fakeAuth) {%>
+<a href="/auth/fake">Fake auth</a>
+<% } %>
+
+<a href="/auth/github">Log in with GitHub</a>
+<a href="/auth/bitbucket">Log in with Bitbucket</a>

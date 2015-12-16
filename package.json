@@ -1,0 +1,29 @@
+{
+  "name": "tc-auth",
+  "version": "1.0.0",
+  "description": "Auth stuff for my standard web stack.",
+  "repository": {
+    "url": "http://github.com/tqc/tc-auth"
+  },
+  "scripts": {
+    "test": "eslint ."
+  },
+  "main": "src/index.js",
+  "keywords": [
+  ],
+  "author": "Tom Clarkson",
+  "license": "MIT",
+  "dependencies": {
+    "passport": "^0.3.0",
+    "passport-bitbucket-oauth2": "^0.1.1",
+    "passport-github2": "^0.1.9"
+  },
+  "devDependencies": {
+    "babel-eslint": "*",
+    "eslint": "^1.9.0",
+    "eslint-config-defaults": "^7.1.1"
+  },
+  "engines": {
+    "node": "^4.2.2"
+  }
+}

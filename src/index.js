@@ -120,11 +120,11 @@ module.exports = function(app, mongo, options) {
         var BitbucketStrategy = require('passport-bitbucket-oauth2').Strategy;
 
         passport.use(new BitbucketStrategy({
-            passReqToCallback: true,
-            clientID: options.bitbucket.clientID,
-            clientSecret: options.bitbucket.clientSecret,
-            callbackURL: options.baseUrl + "/auth/bitbucket/callback"
-        },
+                passReqToCallback: true,
+                clientID: options.bitbucket.clientID,
+                clientSecret: options.bitbucket.clientSecret,
+                callbackURL: options.baseUrl + "/auth/bitbucket/callback"
+            },
             authCallback("bitbucket", "id")
         ));
 
@@ -155,11 +155,11 @@ module.exports = function(app, mongo, options) {
         var GitHubStrategy = require('passport-github2').Strategy;
 
         passport.use(new GitHubStrategy({
-            passReqToCallback: true,
-            clientID: options.github.clientID,
-            clientSecret: options.github.clientSecret,
-            callbackURL: options.baseUrl + "/auth/github/callback"
-        },
+                passReqToCallback: true,
+                clientID: options.github.clientID,
+                clientSecret: options.github.clientSecret,
+                callbackURL: options.baseUrl + "/auth/github/callback"
+            },
             authCallback("github", "id")
         ));
 
@@ -203,6 +203,34 @@ module.exports = function(app, mongo, options) {
         req.logout();
         res.redirect('/');
     });
+
+
+    app.get('/', function(req, res) {
+        if (!options.isLive) {
+            res.render("placeholder", {
+                user: req.user
+            });
+        } else if (req.user) {
+            res.render("userhome", {
+                user: req.user
+            });
+        } else {
+            res.render("anonhome", {});
+        }
+    });
+
+    if (!options.isLive) {
+        app.get('/preview', function(req, res) {
+            if (req.user) {
+                res.render("userhome", {
+                    user: req.user
+                });
+            } else {
+                res.render("anonhome", {});
+            }
+        });
+    }
+
 
     module.exports.ensureAuthenticated = function(req, res, next) {
         if (!req.user) {

@@ -119,7 +119,8 @@ module.exports = function(app, mongo, options) {
     if (options.bitbucket) {
         var BitbucketStrategy = require('passport-bitbucket-oauth2').Strategy;
 
-        passport.use(new BitbucketStrategy({
+        passport.use(new BitbucketStrategy(
+            {
                 passReqToCallback: true,
                 clientID: options.bitbucket.clientID,
                 clientSecret: options.bitbucket.clientSecret,
@@ -154,7 +155,8 @@ module.exports = function(app, mongo, options) {
     if (options.github) {
         var GitHubStrategy = require('passport-github2').Strategy;
 
-        passport.use(new GitHubStrategy({
+        passport.use(new GitHubStrategy(
+            {
                 passReqToCallback: true,
                 clientID: options.github.clientID,
                 clientSecret: options.github.clientSecret,

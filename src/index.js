@@ -208,12 +208,12 @@ module.exports = function(app, mongo, options) {
 
 
     app.get('/', function(req, res) {
-        if (!options.isLive) {
-            res.render("placeholder", {
+        if (req.user) {
+            res.render("userhome", {
                 user: req.user
             });
-        } else if (req.user) {
-            res.render("userhome", {
+        } else if (options.live === false) {
+            res.render("placeholder", {
                 user: req.user
             });
         } else {
@@ -221,7 +221,7 @@ module.exports = function(app, mongo, options) {
         }
     });
 
-    if (!options.isLive) {
+    if (options.live === false) {
         app.get('/preview', function(req, res) {
             if (req.user) {
                 res.render("userhome", {

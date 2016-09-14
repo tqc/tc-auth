@@ -10,6 +10,16 @@ module.exports = function(app, mongo, options) {
     };
 
 
+    function generateUUID() {
+        var d = new Date().getTime();
+        var uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+            var r = (d + Math.random() * 16) % 16 | 0; // eslint-disable-line no-bitwise
+            d = Math.floor(d / 16);
+            return (c == 'x' ? r : (r & 0x7 | 0x8)).toString(16); // eslint-disable-line no-bitwise
+        });
+        return uuid;
+    }
+
     passport.serializeUser(function(user, done) {
         done(null, "" + user._id);
     });
@@ -26,7 +36,7 @@ module.exports = function(app, mongo, options) {
 
 
         db.Users.findOne({
-            _id: db.ObjectID(id)
+            _id: id
         }, done);
 
     });
@@ -42,7 +52,7 @@ module.exports = function(app, mongo, options) {
                         user = {
                             displayName: profile.name || profile.username,
                             //picture: profile._json.picture,
-                            _id: db.ObjectID()
+                            _id: generateUUID()
                         };
                         user[serviceName + "Id"] = profile[idField];
                         user[serviceName + "Token"] = accessToken;

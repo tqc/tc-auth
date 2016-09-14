@@ -243,7 +243,9 @@ module.exports = function(app, mongo, options) {
                     site: options.site
                 });
             } else {
-                res.render("anonhome", {});
+                res.render("anonhome", {
+                    site: options.site
+                });
             }
         });
     }

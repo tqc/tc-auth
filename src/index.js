@@ -115,8 +115,7 @@ module.exports = function(app, mongo, options) {
     }
 
 
-
-    if (options.bitbucket) {
+    if (options.bitbucket && options.bitbucket.clientID) {
         var BitbucketStrategy = require('passport-bitbucket-oauth2').Strategy;
 
         passport.use(new BitbucketStrategy(
@@ -152,7 +151,7 @@ module.exports = function(app, mongo, options) {
 
     }
 
-    if (options.github) {
+    if (options.github && options.github.clientID) {
         var GitHubStrategy = require('passport-github2').Strategy;
 
         passport.use(new GitHubStrategy(
@@ -196,6 +195,7 @@ module.exports = function(app, mongo, options) {
         console.log(req.session.returnUrl);
         res.render('login', {
             user: req.user,
+            site: options.site,
             fakeAuth: process.env.FAKE_AUTH
         });
     });
@@ -210,14 +210,18 @@ module.exports = function(app, mongo, options) {
     app.get('/', function(req, res) {
         if (req.user) {
             res.render("userhome", {
-                user: req.user
+                user: req.user,
+                site: options.site
             });
         } else if (options.live === false) {
             res.render("placeholder", {
-                user: req.user
+                user: req.user,
+                site: options.site
             });
         } else {
-            res.render("anonhome", {});
+            res.render("anonhome", {
+                site: options.site
+            });
         }
     });
 
@@ -225,7 +229,8 @@ module.exports = function(app, mongo, options) {
         app.get('/preview', function(req, res) {
             if (req.user) {
                 res.render("userhome", {
-                    user: req.user
+                    user: req.user,
+                    site: options.site
                 });
             } else {
                 res.render("anonhome", {});

@@ -11,11 +11,20 @@
     <meta name="format-detection" content="telephone=no">
     <link rel="apple-touch-icon" href="images/icon72.png" />
     <link rel="stylesheet" href="index.css" />
+
+
+
 </head>
 
 <body>
 <%-body%>
 </body>
-
+<% if (!user) { %>
+	<!-- <script src="anon.js" /></script> -->
+<% } else if (site.live === false && !user.roles.preview) {%>
+    <!-- <script src="placeholder.js" /></script> -->
+<% } else { %>
+	<script src="app.js"></script>
+<% } %>
 </html>
 

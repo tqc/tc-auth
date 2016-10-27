@@ -67,3 +67,18 @@ container.login {
 	    margin-top: 0;
 	}
 }
+
+
+.boxes {
+	display: flex;
+    margin: 20px auto;
+   	.contentbox {
+		flex-grow: 1;
+		width: 33%;
+		border: 1px solid #ccc;
+		margin: 5px;
+		img {
+			width: 50px;
+		}
+	}
+}

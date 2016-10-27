@@ -27,11 +27,8 @@ module.exports = function(app, mongo, options) {
     passport.deserializeUser(function(id, done) {
         if (typeof id !== "string") return done(null, null);
 
-        if (process.env.FAKE_AUTH) {
-            return done(null, {
-                _id: "fakeuser",
-                displayName: "Test User"
-            });
+        if (options.fakeAuth) {
+            return done(null, options.fakeAuth);
         }
 
 
@@ -217,6 +214,14 @@ module.exports = function(app, mongo, options) {
     });
 
 
+    app.post('/signup', function(req, res) {
+        res.send("signing up using" +req.body.email);
+//        req.logout();
+//        res.redirect('/');
+    });
+
+
+
     app.get('/', function(req, res) {
         if (req.user) {
             res.render("userhome", {
@@ -244,12 +249,29 @@ module.exports = function(app, mongo, options) {
                 });
             } else {
                 res.render("anonhome", {
+                    user: req.user,
                     site: options.site
                 });
             }
         });
     }
 
+
+    module.exports.requireRole = function(role) {
+        return function(req, res, next) {
+            if (!req.user) {
+                res.status(401);
+                res.send("401 Authentication Required")
+                return;
+            }
+            if (role && (req.user.roles || []).indexOf(role) < 0) {
+                res.status(403);
+                res.send("403 Forbidden")
+                return;
+            }
+            next();
+        }
+    };
 
     module.exports.ensureAuthenticated = function(req, res, next) {
         if (!req.user) {

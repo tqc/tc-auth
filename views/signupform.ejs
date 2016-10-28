@@ -1,0 +1,30 @@
+    <div class="signupform">
+        <div class="intro">
+            Intro text here...
+        </div>
+        <% if(error && error.length) {%>
+            <div class="flash error">
+            <%= error %>
+            </div>
+        <% } %>
+        <% if(messages && messages.length) {%>
+            <div class="flash">
+            <%= messages %>
+            </div>
+        <% } %>
+        <div class="main">
+            <div class="box">
+            <p>Sign up with your email address</p>
+                <form action="/signup" method="POST">
+                    <input type="text" name="email" placeholder="Enter your email address">
+                    <input type="password" name="password" placeholder="Password">
+                    <button type="submit">Sign up</button>
+                </form>
+            </div>
+            <div class="box">
+                <p>Or sign up with</p>
+                <a class="social github" href="/auth/github">Log in with GitHub</a>
+                <a class="social bitbucket" href="/auth/bitbucket">Log in with Bitbucket</a>
+            </div>
+        </div>
+    </div>

@@ -8,15 +8,14 @@
         document.head.appendChild(s);
     }
 
+
 if (!window.fetch) {
     loadScript("fetch.js", function() {
-        loadScript("app.js");
+        loadScript("placeholder.js");
     });
 } else {
-    loadScript("app.js");
+    loadScript("placeholder.js");
 }
-
-
 
 </script>
 

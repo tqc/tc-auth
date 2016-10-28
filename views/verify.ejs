@@ -1,0 +1,30 @@
+<div class="fixedheader">
+<div class="container">
+            <a href="/">Home</a>
+</div>
+</div>
+<div class="pagebody">
+<div class="container">
+
+      <% if(messages && messages.length) {%>
+            <div class="flash">
+            <%= messages %>
+            </div>
+        <% } %>
+
+An email has been sent...
+         <form action="/verifymail" method="POST">
+                    <input type="text" name="email" placeholder="email@example.com">
+                    <button type="submit">Send</button>
+                </form>
+[Try sending again]
+
+
+    </div>
+</div>
+<div class="fixedfooter">
+<div class="container">
+            <a href="/">Home</a>
+</div>
+</div>
+

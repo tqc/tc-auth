@@ -19,12 +19,3 @@
 <body>
 <%-body%>
 </body>
-<% if (!user) { %>
-	<!-- <script src="anon.js" /></script> -->
-<% } else if (site.live === false && !user.roles.preview) {%>
-    <!-- <script src="placeholder.js" /></script> -->
-<% } else { %>
-	<script src="app.js"></script>
-<% } %>
-</html>
-

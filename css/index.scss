@@ -82,3 +82,76 @@ container.login {
 		}
 	}
 }
+
+
+.fixedheader {
+	position:fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	height: 50px;
+	background-color: #ccc;
+}
+
+.fixedfooter {
+	position:fixed;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	height: 50px;
+	background-color: #ccc;
+}
+.pagebody {
+	padding: 50px 0px;
+}
+
+.signupform {
+	margin: 10px 0;
+	.flash {
+	    background-color: #fafbdd;
+	    border: 1px solid #e1e2b8;
+	    padding: 10px;
+    }
+	.main {
+		margin: 10px -10px;
+		display: flex;
+		flex-wrap: wrap;
+	}
+	.box {
+		width:300px;
+		flex-grow:1;
+		flex-shrink: 1;
+		border: 1px solid #ccc;
+		margin:10px;
+		padding: 10px;
+		min-width: 300px;
+	}
+	form {
+	}
+	input {
+		display: block;
+		width: 100%;
+		font-size: 14pt;
+		box-sizing: border-box;
+		padding: 10px;
+		margin: 10px 0;
+	}
+
+	button {
+		width: 100%;
+		font-size: 14pt;
+		box-sizing: border-box;
+		padding: 10px;
+		margin: 10px 0;
+	}
+
+	a.social {
+		display: block;
+		border: 1px solid #ccc;
+		margin: 10px;
+		padding-left: 60px;
+		height: 50px;
+		text-decoration: none;
+		line-height: 50px;
+	}
+}

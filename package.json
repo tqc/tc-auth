@@ -1,6 +1,6 @@
 {
   "name": "tc-auth",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "Auth stuff for my standard web stack.",
   "repository": {
     "url": "http://github.com/tqc/tc-auth"
@@ -9,14 +9,16 @@
     "test": "eslint ."
   },
   "main": "src/index.js",
-  "keywords": [
-  ],
+  "keywords": [],
   "author": "Tom Clarkson",
   "license": "MIT",
   "dependencies": {
+    "connect-flash": "^0.1.1",
     "passport": "^0.3.0",
     "passport-bitbucket-oauth2": "^0.1.1",
-    "passport-github2": "^0.1.9"
+    "passport-github2": "^0.1.9",
+    "passport-local": "^1.0.0",
+    "passport-local-authenticate": "^1.2.0"
   },
   "devDependencies": {
     "babel-eslint": "*",

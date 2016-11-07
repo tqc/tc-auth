@@ -10,12 +10,13 @@
 
 if (!window.fetch) {
     loadScript("fetch.js", function() {
+        loadScript("/socket.io/socket.io.js")
         loadScript("app.js");
     });
 } else {
+    loadScript("/socket.io/socket.io.js")
     loadScript("app.js");
 }
-
 
 
 </script>

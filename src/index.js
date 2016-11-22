@@ -1,5 +1,6 @@
 var passport = require('passport');
 var hasher = require("passport-local-authenticate");
+var mailer = require("nodemailer");
 
 var hashOptions = {
     digestAlgorithm: "sha512"
@@ -7,6 +8,11 @@ var hashOptions = {
 
 module.exports = function(app, mongo, options) {
     if (options.live === false && options.site === undefined) options.site = false;
+
+    if (!options.email || !options.email.smtpUrl || !options.email.from) {
+        console.warn("Email not configured - account creation may fail");
+    }
+
     var db = {
         Users: mongo.collection("Users"),
         AccessTokens: mongo.collection("AccessTokens"),
@@ -220,6 +226,7 @@ module.exports = function(app, mongo, options) {
 
     }
 
+
     app.post('/login',
         passport.authenticate('local', {
             failureRedirect: '/login',
@@ -381,11 +388,14 @@ module.exports = function(app, mongo, options) {
         }
     })
 
-    var mailer = require("nodemailer");
-
-    var smtpTransport = mailer.createTransport(options.email.smtpUrl);
-
     function sendEmailVerification(views, email, done) {
+        if (!options.email || !options.email.smtpUrl || !options.email.from) {
+            done ("Email sending not configured");
+            return;
+        }
+
+        var smtpTransport = mailer.createTransport(options.email.smtpUrl);
+
         var token = generateUUID();
 
         db.Users.update({email: email}, {$set: { verifyToken: token }})

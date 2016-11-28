@@ -1,5 +1,4 @@
 var passport = require('passport');
-var authCallback = require("./authCallback");
 var mailer = require("nodemailer");
 
 var hasher = require("passport-local-authenticate");

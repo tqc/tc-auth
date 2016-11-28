@@ -1,5 +1,5 @@
 var passport = require('passport');
-var authCallback = require("./authCallback");
+var authCallback = require("./authcallback");
 
 module.exports = function(app, db, options) {
 

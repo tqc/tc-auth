@@ -39,6 +39,20 @@ module.exports = function(app, mongo, options) {
 
     app.use(passport.initialize());
     app.use(passport.session());
+    app.use(function(req, res, next) {
+        if (req.user) {
+            console.log("User already set");
+            next();
+        }
+        else if (req.headers.authorization && req.headers.authorization.indexOf("Bearer ") == 0) {
+            console.log("Bearer token found");
+            passport.authenticate('bearer', {})(req, res, next);
+        }
+        else {
+            console.log("No user or bearer token");
+            next();
+        }
+    });
 
 
     if (options.handleErrors) {

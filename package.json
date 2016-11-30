@@ -1,6 +1,6 @@
 {
   "name": "tc-auth",
-  "version": "1.0.13",
+  "version": "1.0.14",
   "description": "Auth stuff for my standard web stack.",
   "repository": {
     "url": "http://github.com/tqc/tc-auth"

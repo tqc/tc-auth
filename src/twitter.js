@@ -9,11 +9,11 @@ module.exports = function(app, db, options) {
         passport.use(new TwitterStrategy(
             {
                 passReqToCallback: true,
-                clientID: options.twitter.clientID,
-                clientSecret: options.twitter.clientSecret,
+                consumerKey: options.twitter.clientID,
+                consumerSecret: options.twitter.clientSecret,
                 callbackURL: options.baseUrl + "/auth/twitter/callback"
             },
-            authCallback("twitter", "id")
+            authCallback(db, "twitter", "id")
         ));
 
         app.get('/auth/twitter',

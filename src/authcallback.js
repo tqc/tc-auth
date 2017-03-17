@@ -2,6 +2,7 @@ var cuid = require("cuid");
 
 module.exports = function authCallback(db, serviceName, idField) {
     return function(req, accessToken, refreshTokenOrSecret, profile, done) {
+        console.log(Object.keys(db));
         if (!req.user) {
             // Not logged-in. Authenticate based on this account.
             var q = {};

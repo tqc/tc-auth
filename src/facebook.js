@@ -13,7 +13,7 @@ module.exports = function(app, db, options) {
                 clientSecret: options.facebook.clientSecret,
                 callbackURL: options.baseUrl + "/auth/facebook/callback"
             },
-            authCallback("facebook", "id")
+            authCallback(db, "facebook", "id")
         ));
 
         app.get('/auth/facebook',

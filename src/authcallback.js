@@ -1,7 +1,7 @@
 var cuid = require("cuid");
 
 module.exports = function authCallback(db, serviceName, idField) {
-    return function(req, accessToken, refreshToken, profile, done) {
+    return function(req, accessToken, refreshTokenOrSecret, profile, done) {
         if (!req.user) {
             // Not logged-in. Authenticate based on this account.
             var q = {};
@@ -15,6 +15,7 @@ module.exports = function authCallback(db, serviceName, idField) {
                     };
                     user[serviceName + "Id"] = profile[idField];
                     user[serviceName + "Token"] = accessToken;
+                    user[serviceName + "Token2"] = refreshTokenOrSecret;
                     db.Users.insert(user, function(err2, user2) {
                         return done(err2, user2);
                     });
@@ -31,6 +32,7 @@ module.exports = function authCallback(db, serviceName, idField) {
             req.user[serviceName + "Id"] = profile[idField];
             req.user[serviceName + "Profile"] = profile;
             req.user[serviceName + "Token"] = accessToken;
+            req.user[serviceName + "Token2"] = refreshTokenOrSecret;
             db.Users.save(req.user);
             return done(null, req.user);
         }

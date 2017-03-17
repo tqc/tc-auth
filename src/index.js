@@ -97,6 +97,8 @@ module.exports = function(app, mongo, options) {
 
     require("./bitbucket")(app, db, options);
     require("./github")(app, db, options);
+    require("./facebook")(app, db, options);
+    require("./twitter")(app, db, options);
 
     require("./oauthserver")(app, db, options);
 

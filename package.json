@@ -1,6 +1,6 @@
 {
   "name": "tc-auth",
-  "version": "1.0.14",
+  "version": "1.0.15",
   "description": "Auth stuff for my standard web stack.",
   "repository": {
     "url": "http://github.com/tqc/tc-auth"
@@ -19,12 +19,14 @@
     "oauth2orize": "^1.5.1",
     "passport": "^0.3.0",
     "passport-bitbucket-oauth2": "^0.1.1",
+    "passport-facebook": "^2.1.1",
     "passport-github2": "^0.1.9",
     "passport-http": "^0.3.0",
     "passport-http-bearer": "^1.0.1",
     "passport-local": "^1.0.0",
     "passport-local-authenticate": "^1.2.0",
-    "passport-oauth2-client-password": "^0.1.2"
+    "passport-oauth2-client-password": "^0.1.2",
+    "passport-twitter": "^1.0.4"
   },
   "devDependencies": {
     "babel-eslint": "*",

@@ -13,7 +13,7 @@ module.exports = function(app, db, options) {
                 clientSecret: options.github.clientSecret,
                 callbackURL: options.baseUrl + "/auth/github/callback"
             },
-            authCallback("github", "id")
+            authCallback(db, "github", "id")
         ));
 
         app.get('/auth/github',

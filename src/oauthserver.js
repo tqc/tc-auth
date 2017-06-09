@@ -38,7 +38,7 @@ module.exports = function(app, db, options) {
     function ensureLoggedIn(req, res, next) {
         if (!req.user) {
             req.flash("returnUrl", req.url);
-            res.redirect('/login');
+            res.redirect('/auth/login');
             return;
         }
         next();
@@ -166,7 +166,7 @@ module.exports = function(app, db, options) {
     // authorization).  We accomplish that here by routing through `ensureLoggedIn()`
     // first, and rendering the `dialog` view.
 
-    app.get('/authorize', [
+    app.get('/auth', [
         ensureLoggedIn,
         server.authorization(function(clientId, redirectUri, done) {
             console.log("looking for client " + clientId);
@@ -201,7 +201,7 @@ module.exports = function(app, db, options) {
     // a response.
 
 
-    app.post('/authorize/decision', [
+    app.post('/auth/decision', [
         ensureLoggedIn,
         server.decision()
     ]);
@@ -214,7 +214,7 @@ module.exports = function(app, db, options) {
     // exchange middleware will be invoked to handle the request.  Clients must
     // authenticate when making requests to this endpoint.
 
-    app.post('/oauth/token', [
+    app.post('/auth/token', [
         passport.authenticate(['basic', 'oauth2-client-password'], {
             session: false
         }),

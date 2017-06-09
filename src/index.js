@@ -104,7 +104,7 @@ module.exports = function(app, mongo, options) {
 
     require("./email")(app, db, options);
 
-    app.get('/login', function(req, res) {
+    app.get('/auth/login', function(req, res) {
         res.render('login', {
             user: req.user,
             site: options.site,
@@ -115,12 +115,12 @@ module.exports = function(app, mongo, options) {
     });
 
 
-    app.get('/logout', function(req, res) {
+    app.get('/auth/logout', function(req, res) {
         req.logout();
         res.redirect('/');
     });
 
-    app.get('/signup', function(req, res) {
+    app.get('/auth/signup', function(req, res) {
         res.render('signup', {
             user: req.user,
             site: options.site,

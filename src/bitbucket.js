@@ -25,7 +25,7 @@ module.exports = function(app, db, options) {
 
         app.get('/auth/bitbucket/callback',
             passport.authenticate('bitbucket', {
-                failureRedirect: '/login'
+                failureRedirect: '/auth/login'
             }),
             function(req, res) {
                 var returnUrl = req.flash("returnUrl")[0];

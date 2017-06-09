@@ -27,7 +27,7 @@ module.exports = function(app, db, options) {
 
         app.get('/auth/github/callback',
             passport.authenticate('github', {
-                failureRedirect: '/login'
+                failureRedirect: '/auth/login'
             }),
             function(req, res) {
                 var returnUrl = req.flash("returnUrl")[0];

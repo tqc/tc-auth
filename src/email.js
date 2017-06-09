@@ -54,9 +54,9 @@ module.exports = function(app, db, options) {
     ));
 
 
-    app.post('/login',
+    app.post('/auth/login',
         passport.authenticate('local', {
-            failureRedirect: '/login',
+            failureRedirect: '/auth/login',
             failureFlash: true
         }),
         function(req, res) {
@@ -66,7 +66,7 @@ module.exports = function(app, db, options) {
     );
 
 
-    app.post('/signup', function(req, res) {
+    app.post('/auth/signup', function(req, res) {
         var email = req.body.email;
         var password = req.body.password;
         var valid = true;
@@ -81,7 +81,7 @@ module.exports = function(app, db, options) {
         }
 
         if (!valid) {
-            res.redirect('/signup');
+            res.redirect('/auth/signup');
         }
         else {
             db.Users.findOne({
@@ -103,7 +103,7 @@ module.exports = function(app, db, options) {
                     }, hashOptions, function(err, verified) {
                         if (err || !verified || user.verifyToken) {
                             req.flash("messages", "The email " + email + " is already used.")
-                            res.redirect('/signup');
+                            res.redirect('/auth/signup');
                         }
                         else {
                             req.login(user, function(err) {
@@ -128,7 +128,7 @@ module.exports = function(app, db, options) {
                         db.Users.save(newUser, function(err, user) {
                             if (err) {
                                 req.flash("messages", err.message);
-                                res.redirect('/signup');
+                                res.redirect('/auth/signup');
                             } else {
                                 sendEmailVerification(res, email, function(err) {
                                     if (err) {
@@ -137,7 +137,7 @@ module.exports = function(app, db, options) {
                                     else {
                                         req.flash("messages", "Mail sent");
                                     }
-                                    res.redirect("/verify");
+                                    res.redirect("/auth/verify");
                                 });
                             }
                         });
@@ -147,7 +147,7 @@ module.exports = function(app, db, options) {
         }
     });
 
-    app.get('/verify', function(req, res) {
+    app.get('/auth/verify', function(req, res) {
         res.render("verify", {
             user: req.user,
             site: options.site,
@@ -157,7 +157,7 @@ module.exports = function(app, db, options) {
     });
 
 
-    app.get('/verify/:token', function(req, res) {
+    app.get('/auth/verify/:token', function(req, res) {
         if (!req.params.token) {
             req.flash("messages", "token required");
             res.redirect("/verify");
@@ -222,7 +222,7 @@ module.exports = function(app, db, options) {
     }
 
 
-    app.post('/verifymail', function(req, res) {
+    app.post('/auth/verifymail', function(req, res) {
         var email = req.body.email;
         sendEmailVerification(res, email, function(err) {
             if (err) {

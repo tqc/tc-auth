@@ -27,7 +27,7 @@ module.exports = function(app, db, options) {
 
         app.get('/auth/facebook/callback',
             passport.authenticate('facebook', {
-                failureRedirect: '/login'
+                failureRedirect: '/auth/login'
             }),
             function(req, res) {
                 var returnUrl = req.flash("returnUrl")[0];

@@ -105,6 +105,7 @@ module.exports = function(app, mongo, options) {
     require("./email")(app, db, options);
 
     app.get('/auth/login', function(req, res) {
+        if (req.query.returnUrl) req.flash("returnUrl", req.query.returnUrl);
         res.render('login', {
             user: req.user,
             site: options.site,

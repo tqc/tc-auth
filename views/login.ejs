@@ -1,54 +1,53 @@
 <div class="fixedheader">
 <div class="container">
-            <a href="/">Home</a>
+    <a class="logo" href="/">Logo</a>
+    <div class="title"><%= site.title %></div>
+    <div class="tagline"><%= site.tagline %></div>
 </div>
 </div>
 <div class="pagebody">
 <div class="container">
 
 
-<% if(user) {%>
-<%= user.displayName %>
-<%= user.githubId %>
-<%= user.bitbucketId %>
-<% } %>
-
-
     <div class="signupform">
-        <div class="intro">
-            <p>
-            Intro text here...
-            </p>
-        </div>
+
         <% if(error && error.length) {%>
             <div class="flash error">
             <%= error %>
             </div>
-        <% } %>
-        <% if(messages && messages.length) {%>
+        <% } else if(messages && messages.length) {%>
             <div class="flash">
             <%= messages %>
             </div>
+        <% } else if(site.loginIntro) { %>
+            <div class="intro">
+            <p>
+            <%= site.loginIntro %>
+            </p>
+        </div>
         <% } %>
         <div class="main">
             <div class="box">
-            <p>Login with your email address</p>
+            <p class="boxtitle"><span>Log in with your email address<span></p>
                 <form action="/auth/login" method="POST">
                     <input type="text" name="email" placeholder="email@example.com">
                     <input type="password" name="password" placeholder="Password">
-                    <button type="submit">Login</button>
+                    <button type="submit">Log in</button>
                 </form>
             </div>
             <div class="box">
-                <p>Or log in with</p>
+                <p class="boxtitle"><span>Or</span></p>
                 <% if(fakeAuth) {%>
                     <a class="social fake"  href="/auth/fake">Fake auth</a>
                 <% } %>
 
-                <a class="social github" href="/auth/github">Log in with GitHub</a>
-                <a class="social bitbucket" href="/auth/bitbucket">Log in with Bitbucket</a>
-                <a class="social facebook" href="/auth/facebook">Log in with Facebook</a>
-                <a class="social twitter" href="/auth/twitter">Log in with Twitter</a>
+                <a class="social github" href="/auth/github">GitHub</a>
+                <a class="social bitbucket" href="/auth/bitbucket">Bitbucket</a>
+                <a class="social facebook" href="/auth/facebook">Facebook</a>
+                <a class="social twitter" href="/auth/twitter">Twitter</a>
+            </div>
+            <div class="box">
+                New user? <a href="/auth/signup">Join for free</a>
             </div>
         </div>
     </div>
@@ -59,7 +58,11 @@
 </div>
 <div class="fixedfooter">
 <div class="container">
-            <a href="/">Home</a>
 </div>
 </div>
+
+<% if(user) {%>
+<p>Already logged in as <%= user.displayName %></p>
+<% } %>
+
 
